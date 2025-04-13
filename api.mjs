@@ -1,5 +1,4 @@
 // api.mjs
-// api.js
 const API_KEY = 'your-api-key-here';
 const BASE_URL = 'https://api.thecatapi.com/v1';
 

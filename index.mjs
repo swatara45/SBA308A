@@ -49,14 +49,14 @@
     }
   })();
 
-  // 🐱 Handle form input and show cat image
+  //  Handle form input and show cat image
   async function handleSubmit(e) {
     e.preventDefault();
     const input = document.getElementById('breedID');
     const breedId = input.value.trim();
   
     try {
-      // 🐞 FIX: Throwing error must use new Error(), not just error()
+      // FIX: Throwing error must use new Error(), not just error()
       if (breedId.length === 0 || breedId.length > 10) {
         alert('Incorrect or empty search term');
         throw new Error('Invalid breed ID');

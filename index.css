@@ -1,0 +1,104 @@
+:root {
+    --main-color: #493F93;
+    --accent-color: #81b3ff;
+    --secondary-color: #f5f8ff ;
+    --text-color: #333333;
+    --background-color-main: #fffcf5;
+}
+
+body {
+    background-color: #ffebcd;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    font-family: 'Lucida Sans';
+    font-size: 1rem;
+    padding: auto;
+}
+
+h1 {
+    background-color: var(--main-color);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+h2 {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+button, .button {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 10px;
+    border: 1px solid var(--main-color);
+    border-radius: 4px;
+    text-align: center;
+    }
+
+button:hover {
+    opacity: 0.75;
+}
+.icon-btn {
+    font-size: 20px;
+    width: 40px;
+}
+h3 {
+    color: var(--text-color);
+    text-align: center;
+    margin: 0.5rem;
+}
+
+p {
+    text-align: center;
+}
+
+.form-container {
+    margin: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+
+
+form {
+    display: block;
+    align-content: space-around;
+    text-align: right;
+}
+
+div {
+    /* border: 2px solid red; */
+    /* this is just to see the div block when designing */
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+}
+
+.display-style {
+    background-color: #ffe1b4;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.display-style div {
+    display: inline-block;
+}
+
+.card {
+    width: 18rem;
+    text-align: center;
+    font-size: 0.9rem;
+    background-color: var(--secondary-color);
+    border: solid 1px var(--main-color);
+    border-radius: 8px;
+    text-wrap: wrap;
+}

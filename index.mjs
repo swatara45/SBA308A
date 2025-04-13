@@ -1,39 +1,54 @@
-// IIFE to fetch all breeds initially
-(async function getData() {
+
+(async function getMoreData() {
     try {
-      let res = await axios.get('https://api.thecatapi.com/v1/breeds', {
+      let response = await axios('https://api.thedogapi.com/v1/breeds', {
         headers: {
-          'x-api-key': 'live_UXqbFhQ52jb7NOdPOoQCba6MCzOCxJ2VRs0POXfJIIo2MByYSibNxKfABMalQ65t'
-        },
+          'x-api-key': 'live_JRNZji0VvhVzvk5OO6DvYvdQBiD3dhGawfbsco18dkdmp3hGGZTix0g2AK9bnR4V'
+        }
       });
   
-      createDisplay(res.data);
-    } catch (err) {
-      console.error('Error fetching breed list:', err);
+      let breeds = response.data;
+      let body = document.getElementsByTagName('body')[0];
+      let picDiv = document.getElementById('picDiv');
+  
+      function postData(breed) {
+        let newPost = document.createElement('div');
+        newPost.innerHTML = `
+          <h3>${breed.name}</h3>
+          <p><strong>Origin:</strong> ${breed.origin}</p>
+          <p>${breed.description}</p>
+        `;
+        body.appendChild(newPost);
+      }
+  
+      breeds.forEach(async (breed) => {
+        postData(breed);
+  
+        // Optional: fetch an image for each breed
+        try {
+          let imageRes = await axios.get(`https://api.thedogapi.com/v1/images/search?breed_ids=${breed.id}`, {
+            headers: {
+              'x-api-key': 'live_JRNZji0VvhVzvk5OO6DvYvdQBiD3dhGawfbsco18dkdmp3hGGZTix0g2AK9bnR4V'
+            }
+          });
+  
+          if (imageRes.data.length > 0) {
+            let img = document.createElement('img');
+            img.src = imageRes.data[0].url;
+            img.alt = breed.name;
+            img.style.height = '200px';
+            body.appendChild(img);
+          }
+        } catch (imgErr) {
+          console.error(`Image not found for ${breed.name}:`, imgErr);
+        }
+      });
+  
+    } catch (error) {
+      console.error('Error fetching cat breeds:', error);
     }
   })();
-  
-  // Handle form submission
-  let form = document.getElementById('breedForm');
-  form.addEventListener('submit', handleSubmit);
-  
-  // 🛠️ Helper: Display list of all breeds
-  function createDisplay(dataArray) {
-    const main = document.getElementById('main');
-    const list = document.createElement('ul');
-    main.innerHTML = ''; // clear previous content
-    main.appendChild(list);
-  
-    dataArray.forEach((el) => {
-      const listItem = document.createElement('li');
-  
-      // 🐞 FIX: Correct string interpolation using backticks and proper syntax
-      listItem.innerHTML = `Name: ${el.name} - ID: ${el.id} <button>Visit Animal!</button>`;
-  
-      list.appendChild(listItem); // 🐞 FIX: typo `apendChild` → `appendChild`
-    });
-  }
-  
+
   // 🐱 Handle form input and show cat image
   async function handleSubmit(e) {
     e.preventDefault();
@@ -48,10 +63,10 @@
       }
   
     const res = await axios.get(
-        `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`,
+        `https://api.thedogapi.com/v1/images/search?breed_ids=${breedId}`,
         {
           headers: {
-            'x-api-key': 'live_UXqbFhQ52jb7NOdPOoQCba6MCzOCxJ2VRs0POXfJIIo2MByYSibNxKfABMalQ65t'
+            'x-api-key': 'live_JRNZji0VvhVzvk5OO6DvYvdQBiD3dhGawfbsco18dkdmp3hGGZTix0g2AK9bnR4V'
           },
         }
       );
@@ -59,7 +74,7 @@
       // Show image
       const picDiv = document.getElementById('picDiv');
       if (res.data.length > 0) {
-        picDiv.innerHTML = `<img height='200px' src='${res.data[0].url}' alt='${breedId}' />`;
+        picDiv.innerHTML = `<img height='50px' src='${res.data[0].url}' alt='${breedId}' />`;
       } else {
         picDiv.innerHTML = 'No image found for that breed.';
       }
